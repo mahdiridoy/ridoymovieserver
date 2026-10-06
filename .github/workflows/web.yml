@@ -1,0 +1,47 @@
+name: Deploy MovieBox Web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - '.github/workflows/web.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify static app integrity
+        run: |
+          test -f web/index.html
+          test -f web/js/app.js
+          test -f web/service-worker.js
+          test -f web/manifest.json
+          if grep -RIn --include='*.js' -E '\.innerHTML\s*=|eval\(|new Function' web/js | grep -v 'utils/sanitize.js'; then
+            echo "::error::Unsafe DOM/eval usage found in web/js"
+            exit 1
+          fi
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload static app
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: web
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

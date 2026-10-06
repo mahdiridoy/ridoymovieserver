@@ -1,0 +1,140 @@
+/* ============================================================
+   MovieBox Web — responsive / device layouts
+   ============================================================ */
+
+@media (max-width: 1080px) {
+  :root { --sidebar-w: 78px; }
+  .sidebar .brand-text,
+  .sidebar .side-nav span,
+  .sidebar-foot a span,
+  .sidebar .fineprint { display: none; }
+  .sidebar .brand { justify-content: center; padding: 6px 0; }
+  .side-nav a,
+  .sidebar-foot a { justify-content: center; padding: 12px 0; }
+  .side-nav a.active { box-shadow: inset 3px 0 0 var(--accent); }
+  .tv-layout { grid-template-columns: 190px 1fr; }
+}
+
+@media (max-width: 860px) {
+  .only-mobile { display: inline-flex; }
+  .only-mobile.bottom-nav { display: flex; }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: min(280px, 84vw);
+    transform: translateX(-102%);
+    transition: transform var(--dur) var(--ease);
+    box-shadow: 0 0 60px var(--shadow);
+  }
+  body.nav-open .sidebar { transform: translateX(0); }
+  body.nav-open::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    z-index: calc(var(--z-sidebar) - 1);
+  }
+  .sidebar .brand-text,
+  .sidebar .side-nav span,
+  .sidebar-foot a span,
+  .sidebar .fineprint { display: block; }
+  .sidebar .brand { justify-content: flex-start; padding: 6px 10px; }
+  .side-nav a,
+  .sidebar-foot a { justify-content: flex-start; padding: 10px 12px; }
+
+  .shell { width: 100%; }
+  .view { padding: var(--space-4) var(--space-4) calc(var(--bottomnav-h) + var(--space-6)); }
+
+  .topbar { padding: 0 var(--space-4); gap: var(--space-2); }
+  .top-search { max-width: none; min-width: 0; }
+  .topbar .brand-mobile { display: flex; padding: 0; font-size: 1rem; }
+  .topbar .brand-mobile .brand-mark { width: 26px; height: 26px; }
+  .topbar-actions .icon-btn[href] { display: none; }
+
+  .bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(var(--bottomnav-h) + env(safe-area-inset-bottom));
+    padding-bottom: env(safe-area-inset-bottom);
+    display: flex;
+    align-items: stretch;
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border);
+    z-index: var(--z-bottomnav);
+  }
+  .bottom-nav a,
+  .bottom-nav button {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border: 0;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 650;
+    min-width: 0;
+  }
+  .bottom-nav a.active { color: var(--accent); }
+  .bottom-nav .ico { width: 22px; height: 22px; }
+
+  .grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: var(--space-3); }
+  .row-scroller .card { flex: 0 0 140px; }
+
+  .details-body { flex-direction: column; align-items: center; text-align: center; }
+  .details-info { align-items: center; }
+  .details-meta, .hero-meta { justify-content: center; }
+  .details-facts { text-align: left; }
+  .btn-row { justify-content: center; }
+
+  .hero-inner { text-align: left; }
+
+  .tv-layout { grid-template-columns: 1fr; }
+  .tv-groups {
+    position: static;
+    max-height: none;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    align-items: center;
+    padding: 8px;
+  }
+  .tv-groups h3 { display: none; }
+  .tv-group-btn { width: auto; white-space: nowrap; padding: 8px 12px; background: var(--surface); }
+
+  .episode-thumb { display: none; }
+
+  .toast-root { bottom: calc(var(--bottomnav-h) + 12px); right: 12px; left: 12px; max-width: none; }
+
+  .addon-item { flex-direction: column; }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(114px, 1fr)); }
+  .row-scroller .card { flex: 0 0 124px; }
+  .page-head { gap: var(--space-2); }
+  .hero { min-height: 380px; }
+  .hero-desc { -webkit-line-clamp: 4; line-clamp: 4; }
+  .details-poster { width: 132px; }
+  .top-search { height: 38px; padding: 0 10px; }
+  .top-search input { font-size: 0.88rem; }
+  .modal { max-height: 92dvh; }
+  .card-actions { opacity: 1; transform: none; position: static; padding: 6px 0 0; background: none; }
+  .card-actions .mini-btn { background: var(--surface); color: var(--text-secondary); border: 1px solid var(--border); }
+}
+
+@media (min-width: 861px) {
+  .bottom-nav { display: none !important; }
+  .sheet-backdrop, .bottom-sheet { display: none !important; }
+}
+
+@media print {
+  .sidebar, .topbar, .bottom-nav, .toast-root { display: none !important; }
+}

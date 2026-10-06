@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MovieBox Web">
+  <rect width="64" height="64" rx="14" fill="#12121a"/>
+  <circle cx="32" cy="32" r="21" fill="#e645ff"/>
+  <path d="M27 21.5v21L46 32z" fill="#12121a"/>
+  <rect x="8" y="8" width="48" height="48" rx="11" fill="none" stroke="#e645ff" stroke-opacity="0.45" stroke-width="2"/>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mahdiridoy.github.io/ridoymovieserver/sitemap.xml
