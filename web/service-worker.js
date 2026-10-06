@@ -7,7 +7,7 @@
  * Bump CACHE_VERSION whenever a release changes core shell files.
  */
 
-const CACHE_VERSION = 'moviebox-web-v1';
+const CACHE_VERSION = 'moviebox-web-v2';
 const SHELL_CACHE = `moviebox-shell-${CACHE_VERSION}`;
 
 const SHELL_ASSETS = [

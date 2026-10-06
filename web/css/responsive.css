@@ -109,6 +109,32 @@
   .tv-groups h3 { display: none; }
   .tv-group-btn { width: auto; white-space: nowrap; padding: 8px 12px; background: var(--surface); }
 
+  /* Live TV: player sticks to the top, guide flows below (block layout so the
+     sticky stage is bounded by the whole shell, not just its own grid row). */
+  .tv-shell { display: block; }
+  .tv-stage {
+    position: sticky;
+    top: var(--topbar-h);
+    z-index: 6;
+    background: var(--bg-primary);
+    margin-bottom: var(--space-3);
+    padding-bottom: 4px;
+  }
+  .tv-guide {
+    position: static;
+    max-height: none;
+  }
+  .tv-guide .channel-list {
+    overflow-y: visible;
+    max-height: none;
+  }
+  .tv-stage .tv-video,
+  .tv-standby-inner {
+    max-height: calc(100dvh - var(--topbar-h) - 150px);
+  }
+  .tv-controls .icon-btn { width: 44px; height: 44px; }
+  .channel.channel-row { min-height: 60px; }
+
   .episode-thumb { display: none; }
 
   .toast-root { bottom: calc(var(--bottomnav-h) + 12px); right: 12px; left: 12px; max-width: none; }

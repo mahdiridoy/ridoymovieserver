@@ -5,14 +5,14 @@
  * caching and the 15MB size limit stay with the caller (the Rust
  * M3UParser::fetch_playlist) — this module only turns text into channels.
  *
- * Channel keys: id, name, group, logo, url, tvgId, tvgName, tvgLogo.
+ * Channel keys: id, name, group, logo, url, tvgId, tvgName, tvgLogo, tvgChno.
  */
 
 const UNGROUPED = 'Ungrouped';
 const BOM = '\uFEFF';
 
 function emptyPending() {
-  return { name: '', group: '', tvgId: '', tvgName: '', tvgLogo: '' };
+  return { name: '', group: '', tvgId: '', tvgName: '', tvgLogo: '', tvgChno: '' };
 }
 
 function isHttpUrl(value) {
@@ -107,10 +107,12 @@ export function parseM3U(text) {
       const tvgId = extractAttr(line, 'tvg-id');
       const tvgName = extractAttr(line, 'tvg-name');
       const tvgLogo = extractAttr(line, 'tvg-logo');
+      const tvgChno = extractAttr(line, 'tvg-chno');
       const groupTitle = extractAttr(line, 'group-title');
       if (tvgId) pending.tvgId = tvgId;
       if (tvgName) pending.tvgName = tvgName;
       if (tvgLogo) pending.tvgLogo = tvgLogo;
+      if (tvgChno) pending.tvgChno = tvgChno;
       if (groupTitle) pending.group = groupTitle;
 
       const commaIndex = findTitleComma(line);
@@ -153,6 +155,7 @@ export function parseM3U(text) {
       tvgId: current.tvgId || '',
       tvgName: current.tvgName || '',
       tvgLogo: current.tvgLogo || '',
+      tvgChno: current.tvgChno || '',
     };
     channels.push(channel);
     if (!seenGroups.has(group)) {
