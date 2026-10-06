@@ -36,6 +36,17 @@ jobs:
             echo "::error::Unsafe DOM/eval usage found in web/js"
             exit 1
           fi
+      - name: Ensure GitHub Actions build type
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/${GITHUB_REPOSITORY}/pages" --jq .build_type)
+          if [ "$current" = "workflow" ]; then
+            echo "Pages already uses the GitHub Actions build type"
+          else
+            gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow
+            echo "Pages build type switched from '${current}' to 'workflow'"
+          fi
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload static app
